@@ -11,7 +11,7 @@ saludo("noches").
 despedida("adios").
 despedida("gracias").
 
-% Problemas
+%Problemas
 problema("no").
 problema("imagen").
 problema("conexion").
@@ -21,6 +21,7 @@ problema("suena").
 problema("escribe").
 problema("enciende").
 problema("caido").
+problema("funciona").
 
 %Objetos
 objeto("monitor").
@@ -48,14 +49,18 @@ afirmacion("efectivamente").
 split_string(String, Sep, Words) :-
     split_string(String, Sep, Sep, Words).
 
-% Define the main predicate that splits a sentence into words and returns a list of words
-sentence_to_lists(Sentence, Words) :-
-    split_string(Sentence, " ", Words).
+list_to_string([], '').
+list_to_string([Word], Word).
+list_to_string([Word|Tail], String) :-
+    list_to_string(Tail, Rest),
+    string_concat(Word, ' ', WordWithSpace),
+    string_concat(WordWithSpace, Rest, String).
+
 
 % Define the main predicate to analyze a sentence and extract the greeting, problem, and object
 analyze_sentence(Sentence, Greeting, Problem, Object, Affirmation, Goodbye) :-
     split_string(Sentence, " ", Words),
-    extract_greeting(Words, Greeting),
+    list_to_string(extract_greeting(Words, Greeting), Greeting),
     extract_problem(Words, Problem),
     extract_object(Words, Object),
     extract_affirmation(Words, Affirmation),
