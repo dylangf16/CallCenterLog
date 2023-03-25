@@ -12,12 +12,31 @@ despedida("adios").
 despedida("gracias").
 
 % Problemas
+problema("no").
 problema("imagen").
 problema("conexion").
+problema("sonido").
+problema("audio").
+problema("suena").
+problema("escribe").
+problema("enciende").
+problema("caido").
+problema("funciona").
 
-% Objetos
+%Objetos
 objeto("monitor").
-objeto("entrada").
+objeto("internet").
+objeto("router").
+objeto("mouse").
+objeto("teclado").
+objeto("vpn").
+objeto("impresora").
+objeto("audifonos").
+objeto("outlook").
+objeto("correo").
+objeto("facturas").
+objeto("sistema").
+
 
 %Afirmaciones
 afirmacion("si").
