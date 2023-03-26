@@ -39,7 +39,9 @@ objeto("outlook").
 objeto("correo").
 objeto("facturas").
 objeto("sistema").
-
+objeto("uno").
+objeto("particular").
+objeto("todos").
 
 %Afirmaciones
 afirmacion("si").
