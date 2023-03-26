@@ -27,6 +27,7 @@ problema("problemas").
 
 %Objetos
 objeto("monitor").
+objeto("computadora").
 objeto("internet").
 objeto("router").
 objeto("mouse").

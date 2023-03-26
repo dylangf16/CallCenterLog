@@ -44,6 +44,7 @@ objeto("sistema").
 afirmacion("si").
 afirmacion("correcto").
 afirmacion("afirmativo").
+afirmacion("claro").
 afirmacion("efectivamente").
 
 %Extras
