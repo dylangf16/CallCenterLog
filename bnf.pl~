@@ -60,11 +60,16 @@ list_to_string([Word|Tail], String) :-
 % Define the main predicate to analyze a sentence and extract the greeting, problem, and object
 analyze_sentence(Sentence, Greeting, Problem, Object, Affirmation, Goodbye) :-
     split_string(Sentence, " ", Words),
-    list_to_string(extract_greeting(Words, Greeting), Greeting),
-    extract_problem(Words, Problem),
-    extract_object(Words, Object),
-    extract_affirmation(Words, Affirmation),
-    extract_goodbye(Words, Goodbye).
+    extract_greeting(Words, GreetingList),
+    extract_problem(Words, ProblemList),
+    extract_object(Words, ObjectList),
+    extract_affirmation(Words, AffirmationList),
+    extract_goodbye(Words, GoodbyeList),
+    list_to_string(GreetingList, Greeting),
+    list_to_string(ProblemList, Problem),
+    list_to_string(ObjectList, Object),
+    list_to_string(AffirmationList, Affirmation),
+    list_to_string(GoodbyeList, Goodbye).
 
 % Define a helper predicate to extract the greeting from the list of words
 extract_greeting([], []).
