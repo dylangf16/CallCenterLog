@@ -22,6 +22,8 @@ problema("escribe").
 problema("enciende").
 problema("caido").
 problema("funciona").
+problema("problema").
+problema("problemas").
 
 %Objetos
 objeto("monitor").
@@ -42,7 +44,16 @@ objeto("sistema").
 afirmacion("si").
 afirmacion("correcto").
 afirmacion("afirmativo").
+afirmacion("claro").
 afirmacion("efectivamente").
+
+%Extras
+causa("porque").
+causa("porque?").
+causa("causa").
+causa("razon").
+referencia("referencia").
+referencia("referencias").
 
 
 % Define a predicate to split a string into words
@@ -58,18 +69,22 @@ list_to_string([Word|Tail], String) :-
 
 
 % Define the main predicate to analyze a sentence and extract the greeting, problem, and object
-analyze_sentence(Sentence, Greeting, Problem, Object, Affirmation, Goodbye) :-
+analyze_sentence(Sentence, Greeting, Problem, Object, Affirmation, Cause, Reference, Goodbye) :-
     split_string(Sentence, " ", Words),
     extract_greeting(Words, GreetingList),
     extract_problem(Words, ProblemList),
     extract_object(Words, ObjectList),
     extract_affirmation(Words, AffirmationList),
     extract_goodbye(Words, GoodbyeList),
+    extract_cause(Words, CauseList),
+    extract_reference(Words, ReferenceList),
     list_to_string(GreetingList, Greeting),
     list_to_string(ProblemList, Problem),
     list_to_string(ObjectList, Object),
     list_to_string(AffirmationList, Affirmation),
-    list_to_string(GoodbyeList, Goodbye).
+    list_to_string(GoodbyeList, Goodbye),
+    list_to_string(CauseList, Cause),
+    list_to_string(ReferenceList, Reference).
 
 % Define a helper predicate to extract the greeting from the list of words
 extract_greeting([], []).
@@ -108,4 +123,20 @@ extract_affirmation([Word|Words], [Word|Affirmation]) :-
     extract_affirmation(Words, Affirmation).
 extract_affirmation([_|Words], Affirmation) :-
     extract_affirmation(Words, Affirmation).
+
+extract_cause([],[]).
+extract_cause([Word|Words], [Word|Cause]) :-
+    causa(Word),!,
+    extract_cause(Words, Cause).
+extract_cause([_|Words], Cause) :-
+    extract_cause(Words, Cause).
+
+extract_reference([],[]).
+extract_reference([Word|Words], [Word|Reference]) :-
+    referencia(Word),!,
+    extract_reference(Words, Reference).
+extract_reference([_|Words], Reference) :-
+    extract_reference(Words, Reference).
+
+
 
