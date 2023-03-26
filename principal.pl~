@@ -1,0 +1,4 @@
+:-consult(bnf).
+:-consult(se).
+
+preguntar.

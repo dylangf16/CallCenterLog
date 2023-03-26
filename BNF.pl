@@ -1,4 +1,4 @@
-% Define BNF grammar
+%Define BNF grammar
 % Saludos
 saludo("hola").
 saludo("buenas").
