@@ -1,4 +1,4 @@
-%Define BNF grammar
+%Base de datos BNF
 % Saludos
 saludo("hola").
 saludo("buenas").
@@ -83,21 +83,30 @@ afirmacion("efectivamente").
 %Extras
 causa("porque").
 causa("porque?").
+causa("por que").
 causa("causa").
-causa("razon").
 causa("causas").
+causa("razon").
+causa("razones").
 referencia("referencia").
 referencia("referencias").
+referencia("link").
+referencia("enlace").
 
 %------------------------------------------------------
 %APARTADO POSIBLES CAUSAS
-%-----------------------------------------------------
+%------------------------------------------------------
+% Aqui se encuentran todas las causas de los problemas que puede
+% solucionar
+
+%en caso de no mencionarse el dispositivo lo pregunta
 posibles_causas(''):-
     write("Con que dispositivo desea saber las causas de su problema?"),
     read(Respuesta),
     analyze_sentence(Respuesta, _, _, Object, _, _, _, _),
     posibles_causas(Object).
 
+%causas del fallo del internet
 posibles_causas("internet"):-
     write('Existen varias causas por las cuales el router no funcione'), nl,
     write('1. El router no esta conectado a un enchufe o tomacorrientes'), nl,
@@ -106,6 +115,7 @@ posibles_causas("internet"):-
     write('4. El cable que provee el internet al router no esta conectado'), nl,
     write('5. El cable que provee el internet al dispositivo no esta conectado (o no tiene tarjeta wifi)'),nl.
 
+%causas del fallo del monitor
 posibles_causas("monitor"):-
     write('Existen varias causas por las cuales el monitor no funcione'), nl,
     write('1. El monitor no esta conectado a algun dispositovo'), nl,
@@ -113,6 +123,7 @@ posibles_causas("monitor"):-
     write('3. El monitor no esta encendido'), nl,
     write('4. EL monitor no esta seleccionado en el apartado de "Input" del dispositivo'),nl.
 
+%causas del fallo del mouse
 posibles_causas("mouse"):-
     write('Los problemas presentes en un mouse, depende si esta conectado por cable o por Bluetooth u otro medio inalambrico'),nl,
     write('En el caso donde el mouse es alambrico, se presentan las siguientes causas:'),nl,
@@ -125,6 +136,7 @@ posibles_causas("mouse"):-
     write('2. El mouse esta sin bateria'),nl,
     write('3. El mouse no esta conectado al dispositivo'),nl.
 
+%causas del fallo de la computadora
 posibles_causas("computadora"):-
     write('Existen varias razones por las que una computadora no funcione'),nl,
     write('1. La computadora no esta conectada al tomacorrientes'),nl,
@@ -132,6 +144,7 @@ posibles_causas("computadora"):-
     write('3. Si la computadora enciende, el monitor esta conectado en el puerto erroneo o esta dañado'), nl,
     write('4. Hay algun cable que esta conectado erroneamente, generalmente el cable conectado al boton de encendido o algun cable SATA (los cables de las memorias externas)'),nl.
 
+%causas del fallo de la impresora
 posibles_causas("impresora"):-
     write('Existen varias razones por las que una impresora no funcione'),nl,
     write('1. La impresora no esta conectada a la computadora o dispositivo deseado'),nl,
@@ -139,25 +152,28 @@ posibles_causas("impresora"):-
     write('3. La impresora no tiene suficiente tinta o papel'),nl,
     write('4. La impresora no esta conectada a un tomacorrientes'),nl.
 
-posibles_causas("llamadas"):-
+%causas del fallo del sistema
+posibles_causas("sistema"):-
     write('Existen varias razones por las que el sistema de llamadas no funcione'),nl,
     write('1. El sistema esta caido'),nl,
     write('2. El servidor esta caido (muy relacionado con el punto anterior)'),nl,
     write('3. El router no esta encendido o conectado a la computadora o dispositivo deseado'),nl,
     write('4. Hay algun error en la configuracion del servidor o sistema'),nl.
 
+%causas del fallo de los audifonos
 posibles_causas("audifonos"):-
     write('Existen varias razones por las que los audifonos para el sistema de call center no funcionen'),nl,
     write('1. Los audifonos no estan conectados a la computadora o dispositivo deseado'),nl,
     write('2. Los audifonos no estan encendidos o su microfono esta apagado'),nl,
     write('3. Los niveles de volumen de los audifonos es muy bajo, por ende no se escucha nada'),nl.
 
-
+%causas del fallo del correo
 posibles_causas("correo"):-
     write('Existen varias razones por las que no sirva el correo electronico'),nl,
     write('1. Las credenciales fueron cambiadas sin notificar al encargado de ese correo (preocupante! posible caso de ataque cibernetico)'),nl,
     write('2. La configuracion del correo no es la adecuada, y filtra los correos recibidos o no deja enviar correos en casos específicos'),nl.
 
+%causas del fallo de word
 posibles_causas("word"):-
     write('Existen varias razones por las que la aplicacion de Word de Office no funcione'),nl,
     write('1. No hay suficiente espacio en la computadora para un nuevo archivo'),nl,
@@ -166,6 +182,7 @@ posibles_causas("word"):-
     write('4. La version utilizada del programa es la erronea o esta desactualizada, por ende no tiene los arreglos de bugs mas recientes'),nl,
     write('5. Existen aplicaciones de terceros similares a word o piratas del mismo, que generan incompatibilidades, por ende, generando errores no esperados en la ejecucion del mismo'),nl.
 
+%causas del fallo de excel
 posibles_causas("excel"):-
     write('Existen varias razones por las que la aplicacion de Excel de Office no funcione'),nl,
     write('1. No hay suficiente espacio en la computadora para un nuevo archivo'),nl,
@@ -177,14 +194,18 @@ posibles_causas("excel"):-
 %------------------------------------------------------
 % REFERENCIAS GENERALES DE TODO
 % -----------------------------------------------------
+%Pregunta si desea obtener alguna referencia
 preguntar_referencia:- write('Desea referencias?'), nl, read(Respuesta), verificar_referencia(Respuesta).
+
+% Verifica si desea la referencia, en caso afirmativo pregunta de que
+% proveedor, en caso de ya tener el provedor envia la referencia
 verificar_referencia(Respuesta):- analyze_sentence(Respuesta,_,Problema,_,_,_,_,_), Problema="no".
 verificar_referencia(Respuesta):-analyze_sentence(Respuesta,_,_,Proveedor,_,_,_,_), Proveedor\='',!,proporcionar_referencia(Proveedor).
 verificar_referencia(Respuesta):- analyze_sentence(Respuesta,_,_,Proveedor,_,_,_,_), Proveedor='', !,write('Cual es el modelo el proveedor?'), nl, read(Respuesta1),analyze_sentence(Respuesta1,_,_,Proveedor1,_,_,_,_), proporcionar_referencia(Proveedor1).
 verificar_referencia(Respuesta):- analyze_sentence(Respuesta,_,_,_,Afirmacion,_,_,_), Afirmacion\='', !,write('Cual es el modelo el proveedor?'), nl, read(Respuesta1),analyze_sentence(Respuesta1,_, _,Proveedor,_,_,_,_), proporcionar_referencia(Proveedor).
 
 
-
+%Da todos los links de referencias
 proporcionar_referencia("tp-link") :- write('Aqui esta el enlace a la pagina de soporte de Tp-link: https://www.tp-link.com/support/'), nl.
 proporcionar_referencia("linksys") :- write('Aqui esta el enlace a la pagina de soporte de Linksys: https://www.linksys.com/us/support/'), nl.
 proporcionar_referencia("nexxt") :- write('Aqui esta el enlace a la pagina de soporte de Nexxt: https://nexxtsolutions.com/support/'), nl.
@@ -210,10 +231,12 @@ proporcionar_referencia("outlook") :- write('Aqui esta el enlace a la pagina de 
 proporcionar_referencia("gmail"):- write('Aqui esta el enlace a la pagina de soporte de Gmail: https://support.google.com/mail/'), nl.
 proporcionar_referencia(_) :- write('Proveedor de router o monitor no reconocido. Por favor, intentalo de nuevo.'), nl, verificar_referencia('si').
 
-% Define a predicate to split a string into words
+%Divide un string creando una lista donde cada elemento es una palabra
 split_string(String, Sep, Words) :-
     split_string(String, Sep, Sep, Words).
 
+% convierte una lista de palabras en un string, cada elemento de la
+% lista va a estar separado por un espacio, creando una oracion
 list_to_string([], '').
 list_to_string([Word], Word).
 list_to_string([Word|Tail], String) :-
@@ -222,7 +245,8 @@ list_to_string([Word|Tail], String) :-
     string_concat(WordWithSpace, Rest, String).
 
 
-% Define the main predicate to analyze a sentence and extract the greeting, problem, and object
+% Define el predicado principal y obtiene el soludo, problema, objeto,
+% afirmaciones, causas, referencias y despedidas
 analyze_sentence(Sentence, Greeting, Problem, Object, Affirmation, Cause, Reference, Goodbye) :-
     split_string(Sentence, " ", Words),
     extract_greeting(Words, GreetingList),
@@ -240,7 +264,8 @@ analyze_sentence(Sentence, Greeting, Problem, Object, Affirmation, Cause, Refere
     list_to_string(CauseList, Cause),
     list_to_string(ReferenceList, Reference).
 
-% Define a helper predicate to extract the greeting from the list of words
+% Extrae de una lista de palabras todas las palabras que se consideran
+% saludos, por la base de datos
 extract_greeting([], []).
 extract_greeting([Word|Words], [Word|Greeting]) :-
     saludo(Word),!,
@@ -248,6 +273,8 @@ extract_greeting([Word|Words], [Word|Greeting]) :-
 extract_greeting([_|Words], Greeting) :-
     extract_greeting(Words, Greeting).
 
+% Extrae de una lista de palabras todas las palabras que se consideran
+% despedidas, por la base de datos
 extract_goodbye([], []).
 extract_goodbye([Word|Words], [Word|Goodbye]) :-
     despedida(Word),!,
@@ -255,7 +282,8 @@ extract_goodbye([Word|Words], [Word|Goodbye]) :-
 extract_goodbye([_|Words], Goodbye) :-
     extract_goodbye(Words, Goodbye).
 
-% Define a helper predicate to extract the problem from the list of words
+% Extrae de una lista de palabras todas las palabras que se consideran
+% problemas, por la base de datos
 extract_problem([], []).
 extract_problem([Word|Words], [Word|Problem]) :-
     problema(Word),!,
@@ -263,7 +291,8 @@ extract_problem([Word|Words], [Word|Problem]) :-
 extract_problem([_|Words], Problem) :-
     extract_problem(Words, Problem).
 
-% Define a helper predicate to extract the object from the list of words
+% Extrae de una lista de palabras todas las palabras que se consideran
+% objetos, por la base de datos
 extract_object([], []).
 extract_object([Word|Words], [Word|Object]) :-
     objeto(Word),!,
@@ -271,6 +300,8 @@ extract_object([Word|Words], [Word|Object]) :-
 extract_object([_|Words], Object) :-
     extract_object(Words, Object).
 
+% Extrae de una lista de palabras todas las palabras que se consideran
+% afirmaciones, por la base de datos
 extract_affirmation([],[]).
 extract_affirmation([Word|Words], [Word|Affirmation]) :-
     afirmacion(Word),!,
@@ -278,6 +309,8 @@ extract_affirmation([Word|Words], [Word|Affirmation]) :-
 extract_affirmation([_|Words], Affirmation) :-
     extract_affirmation(Words, Affirmation).
 
+% Extrae de una lista de palabras todas las palabras que se consideran
+% causas, por la base de datos
 extract_cause([],[]).
 extract_cause([Word|Words], [Word|Cause]) :-
     causa(Word),!,
@@ -285,6 +318,8 @@ extract_cause([Word|Words], [Word|Cause]) :-
 extract_cause([_|Words], Cause) :-
     extract_cause(Words, Cause).
 
+% Extrae de una lista de palabras todas las palabras que se consideran
+% referencias, por la base de datos
 extract_reference([],[]).
 extract_reference([Word|Words], [Word|Reference]) :-
     referencia(Word),!,
