@@ -4,6 +4,11 @@
 % inicia el proceso de ayuda al usuario, inicialmente el usuario puede
 % pedir causas, referencias, comunicar su problema o despedirse
 % inmediatamente
+hola:-inicio.
+buenos_dias:-inicio.
+buenas_tarde:-inicio.
+buenas_noches:-inicio.
+
 inicio:- write('En que puedo ayudarle? (internet, monitor, mouse, computadora, impresora, audifonos, correo, word, excel, sistema)'), nl, read(Oracion), inicio(Oracion).
 inicio(Oracion):-analyze_sentence(Oracion,_,_,Objeto,_,Causa,_,_),
     Causa\='', !, posibles_causas(Objeto), ayudar.
