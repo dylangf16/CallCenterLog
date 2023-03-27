@@ -1,7 +1,7 @@
 :-consult(bnf).
 :-consult(se).
 
-inicio:- write('En que puedo ayudarle? (internet, monitor, mouse, computadora, impresora, audifonos, correo, word, excel)'), nl, read(Oracion), inicio(Oracion).
+inicio:- write('En que puedo ayudarle? (internet, monitor, mouse, computadora, impresora, audifonos, correo, word, excel, sistema)'), nl, read(Oracion), inicio(Oracion).
 inicio(Oracion):-analyze_sentence(Oracion,_,_,Objeto,_,Causa,_,_),
     Causa\='', !, posibles_causas(Objeto), ayudar.
 inicio(Oracion):-analyze_sentence(Oracion,_,_,_,_,_,Referencia,_),

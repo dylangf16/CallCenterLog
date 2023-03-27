@@ -60,7 +60,7 @@ objeto("nordvpn").
 objeto("surfshark").
 objeto("expressvpn").
 objeto("brother").
-objeto("canpn").
+objeto("canon").
 objeto("epson").
 objeto("hp").
 objeto("outlook").
@@ -83,6 +83,7 @@ causa("porque").
 causa("porque?").
 causa("causa").
 causa("razon").
+causa("causas").
 referencia("referencia").
 referencia("referencias").
 
@@ -197,7 +198,7 @@ proporcionar_referencia("nordvpn") :- write('Aqui esta el enlace a la pagina de 
 proporcionar_referencia("surfshark") :- write('Aqui esta el enlace a la pagina de soporte de Surfshark: https://support.surfshark.com/hc/en-us'), nl.
 proporcionar_referencia("expressvpn") :- write('Aqui esta el enlace a la pagina de soporte de ExpressVPN: https://www.expressvpn.com/support/'), nl.
 proporcionar_referencia("brother") :- write('Aqui esta el enlace a la pagina de soporte de Brother: https://www.brother-usa.com/support'), nl.
-proporcionar_referencia("canpn") :- write('Aqui esta el enlace a la pagina de soporte de Canon: https://www.usa.canon.com/internet/portal/us/home/support'), nl.
+proporcionar_referencia("canon") :- write('Aqui esta el enlace a la pagina de soporte de Canon: https://www.usa.canon.com/internet/portal/us/home/support'), nl.
 proporcionar_referencia("epson") :- write('Aqui esta el enlace a la pagina de soporte de Epson: https://epson.com/Support/Printers/sh/s1'), nl.
 proporcionar_referencia("hp") :- write('Aqui esta el enlace a la pagina de soporte de HP: https://support.hp.com/us-en/'), nl.
 proporcionar_referencia("outlook") :- write('Aqui esta el enlace a la pagina de soporte de Outlook: https://support.microsoft.com/es-es/microsoft-365'), nl.
