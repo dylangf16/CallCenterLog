@@ -24,6 +24,7 @@ problema("caido").
 problema("funciona").
 problema("problema").
 problema("problemas").
+problema("sirve").
 
 %Objetos
 objeto("monitor").
@@ -31,6 +32,8 @@ objeto("computadora").
 objeto("internet").
 objeto("router").
 objeto("mouse").
+objeto("inhalambrico").
+objeto("cable").
 objeto("teclado").
 objeto("vpn").
 objeto("impresora").
@@ -173,10 +176,8 @@ posibles_causas("excel"):-
 % -----------------------------------------------------
 preguntar_referencia:- write('Desea referencias?'), nl, read(Respuesta), verificar_referencia(Respuesta).
 verificar_referencia(Respuesta):-analyze_sentence(Respuesta,_,_,Proveedor,_,_,_,_), Proveedor\='',!,proporcionar_referencia(Proveedor).
-verificar_referencia(Respuesta):- analyze_sentence(Respuesta,_,_,Proveedor,_,_,_,_), Proveedor='', !,write('Cual es el modelo el proveedor?'), nl, read(Respuesta1),analyze_sentence(Respuesta1,_,_,Proveedor,_,_,_,_), proporcionar_referencia(Proveedor).
+verificar_referencia(Respuesta):- analyze_sentence(Respuesta,_,_,Proveedor,_,_,_,_), Proveedor='', !,write('Cual es el modelo el proveedor?'), nl, read(Respuesta1),analyze_sentence(Respuesta1,_,_,Proveedor1,_,_,_,_), proporcionar_referencia(Proveedor1).
 verificar_referencia(Respuesta):- analyze_sentence(Respuesta,_,_,_,Afirmacion,_,_,_), Afirmacion\='', !,write('Cual es el modelo el proveedor?'), nl, read(Respuesta1),analyze_sentence(Respuesta1,_, _,Proveedor,_,_,_,_), proporcionar_referencia(Proveedor).
-verificar_referencia(_):-write('Cual es el modelo el proveedor?'), nl, read(Respuesta1),analyze_sentence(Respuesta1,_, _,Proveedor,_,_,_,_), proporcionar_referencia(Proveedor).
-
 
 proporcionar_referencia("tp-link") :- write('Aqui esta el enlace a la pagina de soporte de Tp-link: https://www.tp-link.com/support/'), nl.
 proporcionar_referencia("linksys") :- write('Aqui esta el enlace a la pagina de soporte de Linksys: https://www.linksys.com/us/support/'), nl.

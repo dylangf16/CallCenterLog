@@ -24,6 +24,7 @@ problema("caido").
 problema("funciona").
 problema("problema").
 problema("problemas").
+problema("sirve").
 
 %Objetos
 objeto("monitor").
@@ -31,6 +32,8 @@ objeto("computadora").
 objeto("internet").
 objeto("router").
 objeto("mouse").
+objeto("inhalambrico").
+objeto("cable").
 objeto("teclado").
 objeto("vpn").
 objeto("impresora").
@@ -167,6 +170,41 @@ posibles_causas("excel"):-
     write('3. Hay un archivo corrupto en los archivos que usa la aplicacion para funcionar'),
     write('4. La version utilizada del programa es la erronea o esta desactualizada, por ende no tiene los arreglos de bugs mas recientes'),nl,
     write('5. Existen aplicaciones de terceros similares a excel o piratas del mismo, que generan incompatibilidades, por ende, generando errores no esperados en la ejecucion del mismo'),nl.
+
+%------------------------------------------------------
+% REFERENCIAS GENERALES DE TODO
+% -----------------------------------------------------
+preguntar_referencia:- write('Desea referencias?'), nl, read(Respuesta), verificar_referencia(Respuesta).
+verificar_referencia(Respuesta):-analyze_sentence(Respuesta,_,_,Proveedor,_,_,_,_), Proveedor\='',!,proporcionar_referencia(Proveedor).
+verificar_referencia(Respuesta):- analyze_sentence(Respuesta,_,_,Proveedor,_,_,_,_), Proveedor='', !,write('Cual es el modelo el proveedor?'), nl, read(Respuesta1),analyze_sentence(Respuesta1,_,_,Proveedor1,_,_,_,_), proporcionar_referencia(Proveedor1).
+verificar_referencia(Respuesta):- analyze_sentence(Respuesta,_,_,_,Afirmacion,_,_,_), Afirmacion\='', !,write('Cual es el modelo el proveedor?'), nl, read(Respuesta1),analyze_sentence(Respuesta1,_, _,Proveedor,_,_,_,_), proporcionar_referencia(Proveedor).
+verificar_referencia:-write('Cual es el modelo el proveedor?'), nl, read(Respuesta1),analyze_sentence(Respuesta1,_, _,Proveedor,_,_,_,_), proporcionar_referencia(Proveedor).
+
+
+proporcionar_referencia("tp-link") :- write('Aqui esta el enlace a la pagina de soporte de Tp-link: https://www.tp-link.com/support/'), nl.
+proporcionar_referencia("linksys") :- write('Aqui esta el enlace a la pagina de soporte de Linksys: https://www.linksys.com/us/support/'), nl.
+proporcionar_referencia("nexxt") :- write('Aqui esta el enlace a la pagina de soporte de Nexxt: https://nexxtsolutions.com/support/'), nl.
+proporcionar_referencia("asus") :- write('Aqui esta el enlace a la pagina de soporte de Asus: https://www.asus.com/support/'), nl.
+proporcionar_referencia("lg") :- write('Aqui esta el enlace a la pagina de soporte de LG: https://www.lg.com/cac/soporte'),nl.
+proporcionar_referencia("acer") :- write('Aqui esta el enlace a la pagina de soporte de Acer: https://www.acer.com/ar-es/support'),nl.
+proporcionar_referencia("samsung") :- write('Aqui esta el enlace a la pagina de soporte de Samsung: https://www.samsung.com/latin/support/'),nl.
+proporcionar_referencia("lenovo") :- write('Aqui esta el enlace a la pagina de soporte de Lenovo: https://support.lenovo.com/cr/es'),nl.
+proporcionar_referencia("dell") :- write('Aqui esta el enlace a la pagina de soporte de Dell: https://www.dell.com/support/home/'), nl.
+proporcionar_referencia("viewsonic") :- write('Aqui esta el enlace a la pagina de soporte de ViewSonic: https://www.viewsonic.com/es/support/'),nl.
+proporcionar_referencia("logitech") :- write('Aqui esta el enlace a la pagina de soporte de Logitech: https://support.logi.com/hc/en-us'), nl.
+proporcionar_referencia("razer") :- write('Aqui esta el enlace a la pagina de soporte de Razer: https://support.razer.com/gaming-mice-and-mats/'), nl.
+proporcionar_referencia("corsair") :- write('Aqui esta el enlace a la pagina de soporte de Corsair: https://www.corsair.com/us/en/support'), nl.
+proporcionar_referencia("newskill") :- write('Aqui esta el enlace a la pagina de soporte de Newskill: https://newskillgaming.com/soporte/'), nl.
+proporcionar_referencia("nordvpn") :- write('Aqui esta el enlace a la pagina de soporte de NordVPN: https://support.nordvpn.com/'), nl.
+proporcionar_referencia("surfshark") :- write('Aqui esta el enlace a la pagina de soporte de Surfshark: https://support.surfshark.com/hc/en-us'), nl.
+proporcionar_referencia("expressvpn") :- write('Aqui esta el enlace a la pagina de soporte de ExpressVPN: https://www.expressvpn.com/support/'), nl.
+proporcionar_referencia("brother") :- write('Aqui esta el enlace a la pagina de soporte de Brother: https://www.brother-usa.com/support'), nl.
+proporcionar_referencia("canpn") :- write('Aqui esta el enlace a la pagina de soporte de Canon: https://www.usa.canon.com/internet/portal/us/home/support'), nl.
+proporcionar_referencia("epson") :- write('Aqui esta el enlace a la pagina de soporte de Epson: https://epson.com/Support/Printers/sh/s1'), nl.
+proporcionar_referencia("hp") :- write('Aqui esta el enlace a la pagina de soporte de HP: https://support.hp.com/us-en/'), nl.
+proporcionar_referencia("outlook") :- write('Aqui esta el enlace a la pagina de soporte de Outlook: https://support.microsoft.com/es-es/microsoft-365'), nl.
+proporcionar_referencia("gmail"):- write('Aqui esta el enlace a la pagina de soporte de Gmail: https://support.google.com/mail/'), nl.
+proporcionar_referencia(_) :- write('Proveedor de router o monitor no reconocido. Por favor, intentalo de nuevo.'), nl, verificar_referencia('si').
 
 % Define a predicate to split a string into words
 split_string(String, Sep, Words) :-
